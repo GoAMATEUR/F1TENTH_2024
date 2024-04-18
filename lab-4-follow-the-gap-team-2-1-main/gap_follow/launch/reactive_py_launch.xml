@@ -1,0 +1,15 @@
+<launch>
+  <node pkg="gap_follow" exec="reactive_node.py" name="reactive_node" output="screen">
+    <param name="rejection_thres" value="2.5" />
+    <param name="window_size" value="5" />
+    <param name="consecutive_hits" value="5" />
+    <param name="distance_thres" value="2.0" />
+    <param name="bubble_radius_factor" value="0.7" />
+    <param name="disparity_thres" value="0.2" />
+    <param name="k_p" value="0.5" />
+    <param name="k_d" value="0.2" />
+    <param name="k_i" value="0.0001" />
+    <param name="alpha" value="0.4" />
+  </node>
+  <!-- <node pkg="safety_node" exec="safety_node.py" name="safety_node" /> -->
+</launch>

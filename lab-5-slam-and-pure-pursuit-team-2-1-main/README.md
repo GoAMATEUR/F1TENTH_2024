@@ -1,6 +1,9 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/9T1d3NFW)
 # Lab 5: SLAM and Pure Pursuit
 
+This lab uses our own reconstructed map of levine hallway. You need to use the map files (pgm+yaml) file in the map file folder, put them inside of <your workspace>/src/f1tenth_gym_ros/maps/, and also modify the file <your workspace>/src/f1tenth_gym_ros/config/sim.yaml. 
+
+
 ## I. Learning Goals
 
 - SLAM

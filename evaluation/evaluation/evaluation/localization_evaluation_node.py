@@ -18,10 +18,8 @@ class LocalizationEvaluation(Node):
         gt_pose_topic_name = self.declare_parameter('gt_pose_topic_name', 'default_value').get_parameter_value().string_value
         estimated_pose_topic_name = self.declare_parameter('estimated_pose_topic_name', 'default_value').get_parameter_value().string_value
         
-        # self.create_subscription(Odometry, gt_pose_topic_name, self.gt_pose_callback, 10)
-        # self.create_subscription(Odometry, estimated_pose_topic_name, self.estimated_pose_callback, 10)
-        self.create_subscription(Odometry, "/ego_racecar/odom", self.gt_pose_callback, 10)
-        self.create_subscription(Odometry, "/ego_racecar/odom", self.estimated_pose_callback, 10)
+        self.create_subscription(Odometry, gt_pose_topic_name, self.gt_pose_callback, 10)
+        self.create_subscription(Odometry, estimated_pose_topic_name, self.estimated_pose_callback, 10)
 
         self.current_gt_pose_msg = None
 

@@ -10,7 +10,7 @@ def generate_launch_description():
             output='screen',
             parameters=[
                 {'gt_pose_topic_name': '/ego_racecar/odom'},
-                {'estimated_pose_topic_name': '/ego_racecar/odom'}
+                {'estimated_pose_topic_name': '/pf/viz/inferred_pose'}
             ] 
         )
     ])

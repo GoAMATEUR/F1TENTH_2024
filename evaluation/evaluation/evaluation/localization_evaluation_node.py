@@ -6,6 +6,7 @@ from pathlib import Path
 import rclpy
 from rclpy.node import Node
 from nav_msgs.msg import Odometry
+from geometry_msgs.msg import PoseStamped
 from rclpy.qos import QoSProfile, QoSDurabilityPolicy, QoSReliabilityPolicy
 
 class LocalizationEvaluation(Node):
@@ -19,7 +20,7 @@ class LocalizationEvaluation(Node):
         estimated_pose_topic_name = self.declare_parameter('estimated_pose_topic_name', 'default_value').get_parameter_value().string_value
         
         self.create_subscription(Odometry, gt_pose_topic_name, self.gt_pose_callback, 10)
-        self.create_subscription(Odometry, estimated_pose_topic_name, self.estimated_pose_callback, 10)
+        self.create_subscription(PoseStamped, estimated_pose_topic_name, self.estimated_pose_callback, 10)
 
         self.current_gt_pose_msg = None
 
@@ -32,12 +33,13 @@ class LocalizationEvaluation(Node):
         self.output_file_path = output_dir / "localization_evaluation.csv"
 
         output_file = open(self.output_file_path, "w")
+        output_file.write(gt_pose_topic_name + "\n")
+        output_file.write(estimated_pose_topic_name + "\n")
         output_file.write("timestamp,gt_x,gt_y,gt_yaw,est_x,est_y,est_yaw\n")
         output_file.close()
 
     def gt_pose_callback(self, pose_msg):                
         self.current_gt_pose_msg = pose_msg
-
         return 
 
     def estimated_pose_callback(self, pose_msg):
@@ -48,9 +50,9 @@ class LocalizationEvaluation(Node):
         gt_y = self.current_gt_pose_msg.pose.pose.position.y
         gt_yaw = self.current_gt_pose_msg.pose.pose.orientation.z
 
-        est_x = pose_msg.pose.pose.position.x
-        est_y = pose_msg.pose.pose.position.y
-        est_yaw = pose_msg.pose.pose.orientation.z
+        est_x = pose_msg.pose.position.x
+        est_y = pose_msg.pose.position.y
+        est_yaw = pose_msg.pose.orientation.z
 
         timestamp = pose_msg.header.stamp.sec + pose_msg.header.stamp.nanosec * 1e-9
 
